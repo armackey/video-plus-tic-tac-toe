@@ -2,20 +2,30 @@
   box-sizing:border-box;
 }
 
-
-#remote-media > video {
-  width: 100px;
-  position: relative;
-  top: 350px;
-  border: 2px solid white;
+#controls, #local-media {
+  display: inline;
 }
 
 #local-media > video {
+  width: 100px;
+  position: relative;
+  top: -85px;
+  border: 2px solid white;
+  right: -25px;
+  display: inline;
+}
+
+#remote-media > video {
   width: 400px;
+  position: relative;
+  right: -20px;
 }
 
 #end-call {
   display: none;
+  position: relative;
+  top: -137px;
+  left: 331px;
 }
 
 html, body {
@@ -159,7 +169,7 @@ section input {
   }
 }
 
-#get-username > button {
+ button {
     background-color:transparent;
     border:1px dashed #83A4C5;
     display:inline-block;
@@ -175,7 +185,7 @@ section input {
   }
 
 
-#username {
+#username, #invite-to {
   background: transparent;
   border: none;
   border-bottom: 1px dashed #83A4C5;
@@ -185,17 +195,23 @@ section input {
   font-style: italic;
   color: white;
   position: relative;
-  top: 8px;
+  top: 9px;
+  font-size: 16px;
 }
 
-#get-username:hover {
+#button-invite:hover, #end-call:hover {
+  background: white;
+  color: black;
+  border: none;
+}
+/*#get-username:hover {
   background-color:transparent;
 }
 #get-username:active {
   position:relative;
   top:1px;
 }
-
+*/
 
 
 

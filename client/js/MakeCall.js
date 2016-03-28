@@ -40,7 +40,7 @@ videoChat.MakeCall = (function() {
     // Successfully connected!
     function clientConnected() {
       document.getElementById('invite-controls').style.display = 'block';
-      log("Connected to Twilio. Listening for incoming Invites as '" + conversationsClient.identity + "'");
+      log("Welcome, " + conversationsClient.identity + ". We're awaiting invites from friends.");
 
       conversationsClient.on('invite', function(invite) {
         log('Incoming invite from: ' + invite.from);
@@ -78,7 +78,7 @@ videoChat.MakeCall = (function() {
 
       function hideButtons() {
         document.getElementById('button-invite').style.display = 'none';
-        document.getElementById('button-preview').style.display = 'none';
+        // document.getElementById('button-preview').style.display = 'none';
         document.getElementById('grab-username').style.display = 'none';
         document.getElementById('invite-to').style.display = 'none';
         document.getElementById('username').style.display = 'none';
@@ -88,7 +88,7 @@ videoChat.MakeCall = (function() {
 
       function showButtons() {
         document.getElementById('button-invite').style.display = 'inline';
-        document.getElementById('button-preview').style.display = 'inline';
+        // document.getElementById('button-preview').style.display = 'inline';
         document.getElementById('grab-username').style.display = 'inline';
         document.getElementById('username').style.display = 'inline';
         document.getElementById('invite-to').style.display = 'inline';
@@ -126,7 +126,7 @@ videoChat.MakeCall = (function() {
 
       // When the conversation ends, stop capturing local video
       conversation.on('ended', function(conversation) {
-        log("Connected to Twilio. Listening for incoming Invites as '" + conversationsClient.identity + "'");
+        log("How about we call another friend " + conversationsClient.identity + "?");
         conversation.localMedia.stop();
         conversation.disconnect();
         activeConversation = null;
@@ -144,21 +144,21 @@ videoChat.MakeCall = (function() {
     };
 
     //  Local video preview
-    document.getElementById('button-preview').onclick = function() {
-      document.getElementById('local-media').style.display = 'inline';
-      if (!previewMedia) {
-        previewMedia = new Twilio.Conversations.LocalMedia();
-        Twilio.Conversations.getUserMedia().then(
-        function(mediaStream) {
-          previewMedia.addStream(mediaStream);
-          previewMedia.attach('#local-media');
-        },
-        function(error) {
-          console.error('Unable to access local media', error);
-          log('Unable to access Camera and Microphone');
-        });
-      }
-    };
+    // document.getElementById('button-preview').onclick = function() {
+    //   document.getElementById('local-media').style.display = 'inline';
+    //   if (!previewMedia) {
+    //     previewMedia = new Twilio.Conversations.LocalMedia();
+    //     Twilio.Conversations.getUserMedia().then(
+    //     function(mediaStream) {
+    //       previewMedia.addStream(mediaStream);
+    //       previewMedia.attach('#local-media');
+    //     },
+    //     function(error) {
+    //       console.error('Unable to access local media', error);
+    //       log('Unable to access Camera and Microphone');
+    //     });
+    //   }
+    // };
 
     // Activity log
     function log(message) {
