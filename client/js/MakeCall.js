@@ -14,12 +14,12 @@ videoChat.MakeCall = (function() {
 
 
 
-    document.getElementById('grab-username').onclick = function() {
-      document.getElementById("myNav").style.height = "0%";
-      var user = {};
-      user.username = videoChat.CreateUser.getUser();
-      createConversation(user);
-    };
+    // document.getElementById('grab-username').onclick = function() {
+    //   document.getElementById("myNav").style.height = "0%";
+    //   var user = {};
+    //   user.username = videoChat.CreateUser.getUser();
+    //   createConversation(user);
+    // };
 
     function createConversation(user) {
       $.post('/token', user).then(function(data) {

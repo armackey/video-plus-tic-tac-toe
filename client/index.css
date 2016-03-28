@@ -213,6 +213,30 @@ section input {
 }
 */
 
+#board {
+  margin-right: 100px;
+}
+
+#board > div {
+  width: 100px;
+  height: 100px;
+  background: white;
+  margin: 5px 5px 5px 5px;
+  display: inline-block;
+  float: right;
+}
+
+#board > div:nth-of-type(n+4) {
+  position: relative;
+  top: 110px;
+  left: 330px;
+}
+
+#board > div:nth-of-type(n+7) {
+  position: relative;
+  top: 220px;
+  left: 660px;
+}
 
 
 

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <div id="myNav" class="overlay">
+<!--   <div id="myNav" class="overlay">
     <div class="overlay-content">
       <div id="get-username">
         <input id="username" placeholder="username"  />
@@ -14,38 +14,39 @@
       </div>
     </div>
   </div>
-    
+ -->    
     <div id="log">
       <p><span id="log-content">Preparing to listen</span>...</p>
     </div>
 
     <div id="remote-media"></div>
-    <div id="controls">
-      
-      
-      
-        <div id="local-media"></div>
-        <!-- <button id="button-preview">Preview My Camera</button> -->
-      
 
+    <div id="controls">
+      <div id="local-media"></div>
+        <!-- <button id="button-preview">Preview My Camera</button> -->
       <div id="invite-controls">
         <p class="instructions"></p>
         <input id="invite-to" type="text" placeholder="Friends' name" />
         <button id="button-invite">Call Friend</button>
       </div>
 
-
-
       <button id="end-call">end call</button>
-
-
     </div><!-- /controls -->
+
+    <div id="board"></div>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
   <script src="js/VideoChat.js"></script>
   <script src="js/CreateUser.js"></script>
   <script src="js/MakeCall.js"></script>
+  <script src="js/tic-tac-toe/FireCalls.js"></script>
+  
+  <script src="js/tic-tac-toe/board.js"></script>
+  <script src="js/tic-tac-toe/game.js"></script>
+  <script src="js/tic-tac-toe/player.js"></script>
+  <script src="js/tic-tac-toe/gameLogic.js"></script>
 </body>
 </html>
