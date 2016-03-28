@@ -6,11 +6,16 @@ videoChat.MakeCall = (function() {
   var previewMedia;
   var identity;
   var self = this;
+  var videoElems = document.getElementsByTagName('video');
+  var localVideo = document.getElementById('local-media');
   var inCall = false;
 
   function MakeCall() {
 
+
+
     document.getElementById('grab-username').onclick = function() {
+      document.getElementById("myNav").style.height = "0%";
       var user = {};
       user.username = videoChat.CreateUser.getUser();
       createConversation(user);
@@ -62,7 +67,7 @@ videoChat.MakeCall = (function() {
         };
     }
 
-    function toggleCall() {
+    function toggleButtons() {
       if (inCall) {
         hideButtons();
         inCall = false;
@@ -77,15 +82,21 @@ videoChat.MakeCall = (function() {
         document.getElementById('grab-username').style.display = 'none';
         document.getElementById('invite-to').style.display = 'none';
         document.getElementById('username').style.display = 'none';
+
         document.getElementById('end-call').style.display = 'inline';
       }
+
       function showButtons() {
         document.getElementById('button-invite').style.display = 'inline';
         document.getElementById('button-preview').style.display = 'inline';
         document.getElementById('grab-username').style.display = 'inline';
         document.getElementById('username').style.display = 'inline';
         document.getElementById('invite-to').style.display = 'inline';
+
         document.getElementById('end-call').style.display = 'none';
+
+        // ensure that local media removes on firefox
+        $('#local-media > video').remove();
       }
     }
 
@@ -101,16 +112,15 @@ videoChat.MakeCall = (function() {
       // When a participant joins, draw their video on screen
       conversation.on('participantConnected', function(participant) {
         inCall = true;
-        toggleCall();
+        toggleButtons();
         log("Participant '" + participant.identity + "' connected");
         participant.media.attach('#remote-media');
       });
 
       // When a participant disconnects, note in log
       conversation.on('participantDisconnected', function(participant) {
-        console.log(participant);
         inCall = false;
-        toggleCall();
+        toggleButtons();
         log("Participant '" + participant.identity + "' disconnected");
       });
 
@@ -123,7 +133,6 @@ videoChat.MakeCall = (function() {
       });
 
       self.endCall = function() {
-        toggleCall();
         conversation.localMedia.stop();
         conversation.disconnect();
         activeConversation = null;
@@ -136,6 +145,7 @@ videoChat.MakeCall = (function() {
 
     //  Local video preview
     document.getElementById('button-preview').onclick = function() {
+      document.getElementById('local-media').style.display = 'inline';
       if (!previewMedia) {
         previewMedia = new Twilio.Conversations.LocalMedia();
         Twilio.Conversations.getUserMedia().then(

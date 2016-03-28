@@ -5,36 +5,43 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  
-  <div id="log">
-    <p>&gt;&nbsp;<span id="log-content">Preparing to listen</span>...</p>
+
+  <div id="myNav" class="overlay">
+    <div class="overlay-content">
+      <div id="get-username">
+        <input id="username" placeholder="username"  />
+        <button id="grab-username">SUBMIT</button>
+      </div>
+    </div>
   </div>
-
-  <div id="remote-media"></div>
-  <div id="controls">
     
-    <div id="preview">
-      <p class="instructions">Hello Beautiful</p>
-      <div id="local-media"></div>
-      <button id="button-preview">Preview My Camera</button>
+    <div id="log">
+      <p>&gt;&nbsp;<span id="log-content">Preparing to listen</span>...</p>
     </div>
+    <p>sdfsdafds</p>
 
-    <div id="invite-controls">
-      <p class="instructions">Invite another Video Client</p>
-      <input id="invite-to" type="text" placeholder="Identity to send an invite to" />
-      <button id="button-invite">Send Invite</button>
-    </div>
+    <div id="remote-media"></div>
+    <div id="controls">
+      
+      <div id="preview">
+        <p class="instructions">Hello Beautiful</p>
+        <div id="local-media"></div>
+        <button id="button-preview">Preview My Camera</button>
+      </div>
 
-    <div id="get-username">
-      <input id="username" placeholder="username" />
-      <button id="grab-username">create username</button>
-    </div>
+      <div id="invite-controls">
+        <p class="instructions">Invite another Video Client</p>
+        <input id="invite-to" type="text" placeholder="Identity to send an invite to" />
+        <button id="button-invite">Send Invite</button>
+      </div>
 
-    <button id="end-call">end call</button>
 
 
-  </div><!-- /controls -->
+      <button id="end-call">end call</button>
 
+
+    </div><!-- /controls -->
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
