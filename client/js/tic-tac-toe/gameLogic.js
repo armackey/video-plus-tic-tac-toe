@@ -6,38 +6,43 @@ game.gameLogic = (function() {
   var player1;
   var player2;
   var space = {};
+  var spaces = document.getElementById('board').getElementsByTagName('td');
+  var turnCounter = 0;
 
 
-
-  var myTurn = false;
+  var myTurn = true;
   
 
   var ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com');
   
   var playerMovesRef = ref.child('player-moves');
-
+  
   function checkAndPlace(arg) {
-    var spaces = document.getElementById('board').getElementsByTagName('td');
+    console.log(spaces[0]);  
     var move = arg.move;
     var place = arg.place;
-    
-    console.log('arg = ' + arg + ' move = ' + arg.move + ' place = ' + arg.place);
+
+    console.log(' move = ' + arg.move + ' place = ' + arg.place);
     spaces[place].innerHTML = move;
     moves[place] = move;
     console.log(moves);
-
-    
-
   }
 
 
 
   playerMovesRef.on('value', function(snap) {
+       
+    if (turnCounter % 2 === 0) {
+      myTurn = true;
+    } else {
+      myTurn = false;
+      turnCounter += 1;
+    }
+    
     console.log(myTurn);
   });
 
   playerMovesRef.on('child_added', function(snapshot) {
-    myTurn = true;
     if (moves.length < 1) {
       createPlayer2();
     }
@@ -46,7 +51,8 @@ game.gameLogic = (function() {
   });
 
   function createPlayer2(arg) {
-    myTurn = true;
+    turnCounter += 2;
+    moves.push(null);
     console.log('player 2 created');
     player2 = new game.Player('o');
     player1 = null;
@@ -54,14 +60,12 @@ game.gameLogic = (function() {
 
 
   if (moves.length < 1) {
-    myTurn = true;
     player1 = new game.Player('x');
     player2 = null;
   } 
   
 
   $('td').each(function(i, elem, arr) {
-
     
     $(this).click(function(ele, index, arr) {
       if (!myTurn) { 
@@ -72,30 +76,24 @@ game.gameLogic = (function() {
         console.log('this space has been taken');
         return;
       }
-
+      
       space.place = i;
       if (player1 === null) {
-        console.log('player2 just went');
-
         myTurn = false;
-        moves[i] = player2.symbol;
+        turnCounter += 1;
         
         space.move = player2.symbol;
         $(this).text(space.move);
-        
         playerMovesRef.push(space);
       } else {
-        console.log('player1 just went');
-
         myTurn = false;
-
-        moves[i] = player1.symbol;
-        // console.log(moves[i]);
+        turnCounter += 1;
+        moves.push(null);
+        
         space.move = player1.symbol;
         $(this).text(space.move);
         
         playerMovesRef.push(space);
-        // console.log(moves);
       } 
       
       
@@ -103,32 +101,32 @@ game.gameLogic = (function() {
   });
 
 
-  function winner() {
-    if (moves[0] === 'x' && moves[1] === 'x' && moves[2] === 'x' ||
-        moves[3] === 'x' && moves[4] === 'x' && moves[5] === 'x' ||
-        moves[6] === 'x' && moves[7] === 'x' && moves[8] === 'x' ||
-        moves[0] === 'x' && moves[3] === 'x' && moves[6] === 'x' ||
-        moves[1] === 'x' && moves[4] === 'x' && moves[7] === 'x' ||
-        moves[2] === 'x' && moves[5] === 'x' && moves[8] === 'x' ||
-        moves[0] === 'x' && moves[4] === 'x' && moves[8] === 'x' ||
-        moves[2] === 'x' && moves[4] === 'x' && moves[6] === 'x' ) {
+  
+    if (spaces[0] === '<td>x</td>' && spaces[1] === '<td>x</td>' && spaces[2] === '<td>x</td>' ||
+        spaces[3] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[5] === '<td>x</td>' ||
+        spaces[6] === '<td>x</td>' && spaces[7] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
+        spaces[0] === '<td>x</td>' && spaces[3] === '<td>x</td>' && spaces[6] === '<td>x</td>' ||
+        spaces[1] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[7] === '<td>x</td>' ||
+        spaces[2] === '<td>x</td>' && spaces[5] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
+        spaces[0] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
+        spaces[2] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[6] === '<td>x</td>' ) {
       
         console.log('x is winner');
     }
 
-    if (moves[0] === 'o' && moves[1] === 'o' && moves[2] === 'o' ||
-        moves[3] === 'o' && moves[4] === 'o' && moves[5] === 'o' ||
-        moves[6] === 'o' && moves[7] === 'o' && moves[8] === 'o' ||
-        moves[0] === 'o' && moves[3] === 'o' && moves[6] === 'o' ||
-        moves[1] === 'o' && moves[4] === 'o' && moves[7] === 'o' ||
-        moves[2] === 'o' && moves[5] === 'o' && moves[8] === 'o' ||
-        moves[0] === 'o' && moves[4] === 'o' && moves[8] === 'o' ||
-        moves[2] === 'o' && moves[4] === 'o' && moves[6] === 'o' ) {
+    if (spaces[0] === '<td>o</td>' && spaces[1] === '<td>o</td>' && spaces[2] === '<td>o</td>' ||
+        spaces[3] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[5] === '<td>o</td>' ||
+        spaces[6] === '<td>o</td>' && spaces[7] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
+        spaces[0] === '<td>o</td>' && spaces[3] === '<td>o</td>' && spaces[6] === '<td>o</td>' ||
+        spaces[1] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[7] === '<td>o</td>' ||
+        spaces[2] === '<td>o</td>' && spaces[5] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
+        spaces[0] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
+        spaces[2] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[6] === '<td>o</td>' ) {
       
         console.log('o is winner');
     }
       
-  }
+  
 
 
 })();
