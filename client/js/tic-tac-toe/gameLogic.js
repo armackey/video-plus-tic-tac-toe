@@ -1,27 +1,55 @@
 var game = game || {};
-var fire = fire || {};
 
 game.gameLogic = (function() {
   var board = game.board.getBoard();
   var moves = [];
   var player1;
   var player2;
+  var space = {};
+
+
+
   var myTurn = false;
+  
 
   var ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com');
+  
+  var playerMovesRef = ref.child('player-moves');
 
-  ref.on('child_added', function(snapshot) {
-    myTurn = true;
-    setValueInMovesArray(snapshot.val());
+  function checkAndPlace(arg) {
+    var spaces = document.getElementById('board').getElementsByTagName('td');
+    var move = arg.move;
+    var place = arg.place;
+    
+    console.log('arg = ' + arg + ' move = ' + arg.move + ' place = ' + arg.place);
+    spaces[place].innerHTML = move;
+    moves[place] = move;
+    console.log(moves);
+
+    
+
+  }
+
+
+
+  playerMovesRef.on('value', function(snap) {
+    console.log(myTurn);
   });
 
-  function setValueInMovesArray(arg) {
-    var key;
-    for (key in arg) {
-      console.log(arg);
-      console.log(key);
+  playerMovesRef.on('child_added', function(snapshot) {
+    myTurn = true;
+    if (moves.length < 1) {
+      createPlayer2();
     }
-    console.log(moves);
+    
+    checkAndPlace(snapshot.val());
+  });
+
+  function createPlayer2(arg) {
+    myTurn = true;
+    console.log('player 2 created');
+    player2 = new game.Player('o');
+    player1 = null;
   }
 
 
@@ -29,59 +57,51 @@ game.gameLogic = (function() {
     myTurn = true;
     player1 = new game.Player('x');
     player2 = null;
-  } else {
-    player2 = new game.Player('o');
-    player1 = null;
-  }
+  } 
   
 
-  $('#board > div').each(function(i, elem, arr) {
-    var turn;
-    $(this).click(function(elem, index, arr) {
+  $('td').each(function(i, elem, arr) {
+
+    
+    $(this).click(function(ele, index, arr) {
       if (!myTurn) { 
         return;
       }
-      var indeX = i;
 
+      if (ele.currentTarget.innerHTML) {
+        console.log('this space has been taken');
+        return;
+      }
+
+      space.place = i;
       if (player1 === null) {
-        console.log('player 2 just went');
-        turn = player2.symbol;
-        moves[indeX] = turn;
-        ref.push(moves);
-        $(this).text(turn);
-        
-        myTurn = false;
-      } else {
-        console.log('player 1 just went');
-        turn = player1.symbol;
-        moves[indeX] = turn;
-        ref.push(moves);
-        $(this).text(turn);
-        myTurn = false;
-      } 
-      console.log(i);
+        console.log('player2 just went');
 
-    // for (var j = 0; j < moves.length; j+=1) {
-    //   console.log('working');
-    //   if (j === i) {
-    //     moves[j] = turn;
-    //     ref.push(moves);
-    //     console.log(moves);
-    //   }
-    // }
-    
+        myTurn = false;
+        moves[i] = player2.symbol;
+        
+        space.move = player2.symbol;
+        $(this).text(space.move);
+        
+        playerMovesRef.push(space);
+      } else {
+        console.log('player1 just went');
+
+        myTurn = false;
+
+        moves[i] = player1.symbol;
+        // console.log(moves[i]);
+        space.move = player1.symbol;
+        $(this).text(space.move);
+        
+        playerMovesRef.push(space);
+        // console.log(moves);
+      } 
+      
       
     });
   });
 
-  function setMove(ele, i) {
-    console.log(myTurn);
-
-
- 
-    console.log(ele[i]);
-
-  }
 
   function winner() {
     if (moves[0] === 'x' && moves[1] === 'x' && moves[2] === 'x' ||

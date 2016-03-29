@@ -215,29 +215,32 @@ section input {
 
 #board {
   margin-right: 100px;
+  width: 30%;
+  position: relative;
+  left: 65%;
 }
 
-#board > div {
+td {
   width: 100px;
   height: 100px;
   background: white;
   margin: 5px 5px 5px 5px;
-  display: inline-block;
-  float: right;
+/*  display: inline-flex;
+  position: relative;*/
+}
+
+/*#board > div:nth-of-type(1n) {
+  
 }
 
 #board > div:nth-of-type(n+4) {
-  position: relative;
-  top: 110px;
-  left: 330px;
+  
 }
 
 #board > div:nth-of-type(n+7) {
-  position: relative;
-  top: 220px;
-  left: 660px;
+  
 }
-
+*/
 
 
 

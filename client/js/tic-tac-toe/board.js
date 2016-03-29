@@ -7,9 +7,13 @@ game.board = (function() {
 
   b.createBoard = function(num) {
     this.num = num;
+    $('#board').append('<table></table>');
     for (var i = 0; i < num; i+=1) {
-      var space = document.createElement('div');
-      document.getElementById('board').appendChild(space);
+      if (i % 3 === 0) {
+        $('table').append('<tr><td></td><td></td><td></td></tr>');  
+      }
+      // var space = document.createElement('div');
+      // document.getElementById('board').appendChild(space);
     }
   };
 
