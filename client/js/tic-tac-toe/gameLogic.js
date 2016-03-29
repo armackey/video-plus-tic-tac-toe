@@ -24,22 +24,18 @@ game.gameLogic = (function() {
 
     console.log(' move = ' + arg.move + ' place = ' + arg.place);
     spaces[place].innerHTML = move;
-    moves[place] = move;
-    console.log(moves);
   }
 
 
 
   playerMovesRef.on('value', function(snap) {
-       
     if (turnCounter % 2 === 0) {
       myTurn = true;
     } else {
       myTurn = false;
       turnCounter += 1;
     }
-    
-    console.log(myTurn);
+    checkForWinner();
   });
 
   playerMovesRef.on('child_added', function(snapshot) {
@@ -71,7 +67,7 @@ game.gameLogic = (function() {
       if (!myTurn) { 
         return;
       }
-
+      
       if (ele.currentTarget.innerHTML) {
         console.log('this space has been taken');
         return;
@@ -101,32 +97,32 @@ game.gameLogic = (function() {
   });
 
 
-  
-    if (spaces[0] === '<td>x</td>' && spaces[1] === '<td>x</td>' && spaces[2] === '<td>x</td>' ||
-        spaces[3] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[5] === '<td>x</td>' ||
-        spaces[6] === '<td>x</td>' && spaces[7] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
-        spaces[0] === '<td>x</td>' && spaces[3] === '<td>x</td>' && spaces[6] === '<td>x</td>' ||
-        spaces[1] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[7] === '<td>x</td>' ||
-        spaces[2] === '<td>x</td>' && spaces[5] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
-        spaces[0] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[8] === '<td>x</td>' ||
-        spaces[2] === '<td>x</td>' && spaces[4] === '<td>x</td>' && spaces[6] === '<td>x</td>' ) {
+  function checkForWinner() {
+
+    if (spaces[0].innerHTML == 'x' && spaces[1].innerHTML == 'x' && spaces[2].innerHTML == 'x' ||
+        spaces[3].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[5].innerHTML == 'x' ||
+        spaces[6].innerHTML == 'x' && spaces[7].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
+        spaces[0].innerHTML == 'x' && spaces[3].innerHTML == 'x' && spaces[6].innerHTML == 'x' ||
+        spaces[1].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[7].innerHTML == 'x' ||
+        spaces[2].innerHTML == 'x' && spaces[5].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
+        spaces[0].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
+        spaces[2].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[6].innerHTML == 'x' ) {
       
         console.log('x is winner');
     }
 
-    if (spaces[0] === '<td>o</td>' && spaces[1] === '<td>o</td>' && spaces[2] === '<td>o</td>' ||
-        spaces[3] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[5] === '<td>o</td>' ||
-        spaces[6] === '<td>o</td>' && spaces[7] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
-        spaces[0] === '<td>o</td>' && spaces[3] === '<td>o</td>' && spaces[6] === '<td>o</td>' ||
-        spaces[1] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[7] === '<td>o</td>' ||
-        spaces[2] === '<td>o</td>' && spaces[5] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
-        spaces[0] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[8] === '<td>o</td>' ||
-        spaces[2] === '<td>o</td>' && spaces[4] === '<td>o</td>' && spaces[6] === '<td>o</td>' ) {
+    if (spaces[0].innerHTML == 'o' && spaces[1].innerHTML == 'o' && spaces[2].innerHTML == 'o' ||
+        spaces[3].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[5].innerHTML == 'o' ||
+        spaces[6].innerHTML == 'o' && spaces[7].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
+        spaces[0].innerHTML == 'o' && spaces[3].innerHTML == 'o' && spaces[6].innerHTML == 'o' ||
+        spaces[1].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[7].innerHTML == 'o' ||
+        spaces[2].innerHTML == 'o' && spaces[5].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
+        spaces[0].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
+        spaces[2].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[6].innerHTML == 'o' ) {
       
         console.log('o is winner');
     }
-      
-  
+  }
 
 
 })();
