@@ -1,9 +1,20 @@
 var fire = fire || {};
+var game = game || {};
 
-fire.calls = (function() {
-  function MakeCalls() {}
+fire.FireCalls = (function() {
+  function FireCall() {}
 
-  var ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com');
-  var uniqueRef = ref.push();
-  return uniqueRef;
+  f = FireCall.prototype = new FireCall();
+
+
+
+  f.newRef = function() {
+    var ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com/' );
+    return ref;
+  };
+
+
+  
+
+  return f;
 })();

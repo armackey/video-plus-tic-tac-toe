@@ -6,15 +6,17 @@
 </head>
 <body>
 
-<!--   <div id="myNav" class="overlay">
+
+  <div id="myNav" class="overlay">
     <div class="overlay-content">
       <div id="get-username">
+        <h2>Disclaimer: Works Best In Chrome.</h2>
         <input id="username" placeholder="username"  />
         <button id="grab-username">SUBMIT</button>
       </div>
     </div>
   </div>
- -->    
+    
     <div id="log">
       <p><span id="log-content">Preparing to listen</span>...</p>
     </div>
@@ -33,12 +35,18 @@
       <button id="end-call">end call</button>
     </div><!-- /controls -->
 
-    <div id="board"></div>
+    
+      <div id="board"></div>
+      <div><button id="clear-board"> clear board </button></div>  
+    
+
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
   <script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"></script>
   <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+  
+  <script src="js/tic-tac-toe/picture/takePic.js"></script>
   <script src="js/VideoChat.js"></script>
   <script src="js/CreateUser.js"></script>
   <script src="js/MakeCall.js"></script>
@@ -48,5 +56,6 @@
   <script src="js/tic-tac-toe/game.js"></script>
   <script src="js/tic-tac-toe/player.js"></script>
   <script src="js/tic-tac-toe/gameLogic.js"></script>
+  
 </body>
 </html>

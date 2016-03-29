@@ -1,4 +1,6 @@
 var videoChat = videoChat || {};
+var game = game || {};
+var fire = fire || {};
 
 videoChat.MakeCall = (function() {
   var conversationsClient;
@@ -8,18 +10,32 @@ videoChat.MakeCall = (function() {
   var self = this;
   var videoElems = document.getElementsByTagName('video');
   var localVideo = document.getElementById('local-media');
+  
   var inCall = false;
 
+  
+  
   function MakeCall() {
 
+    console.log(game);
+    document.getElementById('grab-username').onclick = function() {
+      document.getElementById("myNav").style.height = "0%";
+      var user = {};
+      user.username = game.Player.setUserName();
+      createConversation(user);
+    };
 
+    function addIdsToCanvas() {
+      var remoteVideo = document.getElementById('remote-media');
+      console.log('addIdsToCanvas');
+      if (!remoteVideo) {
+        console.log('remote media not found');
+      } else {
+        $('#remote-media > video').attr('id', 'remote-video');
+        $('#local-media > video').attr('id', 'local-video');
+      }
+    }
 
-    // document.getElementById('grab-username').onclick = function() {
-    //   document.getElementById("myNav").style.height = "0%";
-    //   var user = {};
-    //   user.username = videoChat.CreateUser.getUser();
-    //   createConversation(user);
-    // };
 
     function createConversation(user) {
       $.post('/token', user).then(function(data) {
@@ -32,6 +48,7 @@ videoChat.MakeCall = (function() {
 
         // Create a Conversations Client and connect to Twilio
         conversationsClient = new Twilio.Conversations.Client(accessManager);
+        
         conversationsClient.listen().then(clientConnected, function(error) {
           log('Could not connect to Twilio: ' + error.message);
         });
@@ -49,6 +66,7 @@ videoChat.MakeCall = (function() {
 
         // Bind button to create conversation
         document.getElementById('button-invite').onclick = function() {
+          
           var inviteTo = document.getElementById('invite-to').value;
           if (activeConversation) {
             // Add a participant
@@ -71,12 +89,16 @@ videoChat.MakeCall = (function() {
       if (inCall) {
         hideButtons();
         inCall = false;
+
       } else {
         showButtons();
         inCall = true;
       } 
 
+      // if in call
       function hideButtons() {
+        // need these id's for canvas to work!!
+
         document.getElementById('button-invite').style.display = 'none';
         // document.getElementById('button-preview').style.display = 'none';
         document.getElementById('grab-username').style.display = 'none';
@@ -86,7 +108,9 @@ videoChat.MakeCall = (function() {
         document.getElementById('end-call').style.display = 'inline';
       }
 
+      // if not in call
       function showButtons() {
+
         document.getElementById('button-invite').style.display = 'inline';
         // document.getElementById('button-preview').style.display = 'inline';
         document.getElementById('grab-username').style.display = 'inline';
@@ -107,14 +131,24 @@ videoChat.MakeCall = (function() {
       // Draw local video, if not already previewing
       if (!previewMedia) {
         conversation.localMedia.attach('#local-media');
+        addIdsToCanvas();
       }
 
       // When a participant joins, draw their video on screen
       conversation.on('participantConnected', function(participant) {
+        participant.media.attach('#remote-media');
+        console.log('connect');
+        game.board.createBoard(9);
+        
+        
+
         inCall = true;
         toggleButtons();
         log("Participant '" + participant.identity + "' connected");
-        participant.media.attach('#remote-media');
+        
+        game.GameLogic.start();
+        addIdsToCanvas();
+
       });
 
       // When a participant disconnects, note in log
@@ -145,6 +179,7 @@ videoChat.MakeCall = (function() {
 
     //  Local video preview
     // document.getElementById('button-preview').onclick = function() {
+      
     //   document.getElementById('local-media').style.display = 'inline';
     //   if (!previewMedia) {
     //     previewMedia = new Twilio.Conversations.LocalMedia();
@@ -152,6 +187,7 @@ videoChat.MakeCall = (function() {
     //     function(mediaStream) {
     //       previewMedia.addStream(mediaStream);
     //       previewMedia.attach('#local-media');
+    //       $('#local-media > video').attr('id', 'local-video');
     //     },
     //     function(error) {
     //       console.error('Unable to access local media', error);

@@ -1,8 +1,8 @@
-var game = game || {};
+// var game = game || {};
 
-game.start = (function() {
-  function Start() {}
-  game.board.createBoard(9);
+// game.start = (function() {
+//   function Start() {}
+//   game.board.createBoard(9);
 
-  return Start;
-})();
+//   return Start;
+// })();

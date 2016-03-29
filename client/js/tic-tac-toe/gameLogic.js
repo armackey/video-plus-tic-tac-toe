@@ -1,128 +1,174 @@
 var game = game || {};
+var videoChat = videoChat || {};
+var takePic = takePic || {};
+var fire = fire || {};
 
-game.gameLogic = (function() {
-  var board = game.board.getBoard();
-  var moves = [];
-  var player1;
-  var player2;
-  var space = {};
-  var spaces = document.getElementById('board').getElementsByTagName('td');
-  var turnCounter = 0;
+game.GameLogic = (function() {
 
+  function GameLogic() {}
 
-  var myTurn = true;
-  
+  var newGame = GameLogic.prototype = new GameLogic();
 
-  var ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com');
-  
-  var playerMovesRef = ref.child('player-moves');
-  
-  function checkAndPlace(arg) {
-    console.log(spaces[0]);  
-    var move = arg.move;
-    var place = arg.place;
-
-    console.log(' move = ' + arg.move + ' place = ' + arg.place);
-    spaces[place].innerHTML = move;
-  }
+  newGame.start = function() {
 
 
+    var moves = [];
+    var player1;
+    var player2;
+    var space = {};
+    var spaces = document.getElementById('board').getElementsByTagName('td');
+    var canvasElems = $('canvas');
+    var spanElems = $('td > span');
+    var turnCounter = 0;
+    var self = this;
 
-  playerMovesRef.on('value', function(snap) {
-    if (turnCounter % 2 === 0) {
-      myTurn = true;
-    } else {
-      myTurn = false;
-      turnCounter += 1;
-    }
-    checkForWinner();
-  });
+    var myTurn = true;
+    var ref = new fire.FireCalls.newRef();
+    var playerMoveRef = ref.child('player-moves');
 
-  playerMovesRef.on('child_added', function(snapshot) {
-    if (moves.length < 1) {
-      createPlayer2();
-    }
+    console.log(fire);
+    console.log(game);
+    console.log(this);
+
+    document.getElementById('clear-board').onclick = function() {
+      playerMoveRef.remove(this.start);
+      self.clearCanvas();
+      game.board.createBoard(9);
+    };
+
+    self.clearCanvas = function() {
+      game.board.destroyBoard();
+    };
     
-    checkAndPlace(snapshot.val());
-  });
-
-  function createPlayer2(arg) {
-    turnCounter += 2;
-    moves.push(null);
-    console.log('player 2 created');
-    player2 = new game.Player('o');
-    player1 = null;
-  }
-
-
-  if (moves.length < 1) {
-    player1 = new game.Player('x');
-    player2 = null;
-  } 
-  
-
-  $('td').each(function(i, elem, arr) {
     
-    $(this).click(function(ele, index, arr) {
-      if (!myTurn) { 
-        return;
-      }
-      
-      if (ele.currentTarget.innerHTML) {
-        console.log('this space has been taken');
-        return;
-      }
-      
-      space.place = i;
-      if (player1 === null) {
-        myTurn = false;
-        turnCounter += 1;
-        
-        space.move = player2.symbol;
-        $(this).text(space.move);
-        playerMovesRef.push(space);
+    function checkAndPlace(arg) {  
+      var move = arg.move;
+      var place = arg.place;
+      spanElems[place].innerHTML = move;
+    }
+
+    function takeOpponentPhoto(arg) {
+      var place = arg.place;
+      console.log(place + ' place');
+      var video = document.getElementById('remote-video');
+      var context = canvasElems[place].getContext('2d');
+      context.drawImage(video, 0, 0, 640, 480);
+    }
+
+    // function takeMyPhoto(arg) {
+    //   var context = arg.getContext('2d');
+    //   var video = document.getElementById('local-video');
+    //   context.drawImage(video, 0, 0, 640, 480);
+    // }
+
+    playerMoveRef.on('value', function(snap) {
+
+      if (turnCounter % 2 === 0) {
+        myTurn = true;
       } else {
         myTurn = false;
         turnCounter += 1;
-        moves.push(null);
-        
-        space.move = player1.symbol;
-        $(this).text(space.move);
-        
-        playerMovesRef.push(space);
-      } 
-      
-      
+      }
+
+      checkForWinner();
     });
-  });
 
-
-  function checkForWinner() {
-
-    if (spaces[0].innerHTML == 'x' && spaces[1].innerHTML == 'x' && spaces[2].innerHTML == 'x' ||
-        spaces[3].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[5].innerHTML == 'x' ||
-        spaces[6].innerHTML == 'x' && spaces[7].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
-        spaces[0].innerHTML == 'x' && spaces[3].innerHTML == 'x' && spaces[6].innerHTML == 'x' ||
-        spaces[1].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[7].innerHTML == 'x' ||
-        spaces[2].innerHTML == 'x' && spaces[5].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
-        spaces[0].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[8].innerHTML == 'x' ||
-        spaces[2].innerHTML == 'x' && spaces[4].innerHTML == 'x' && spaces[6].innerHTML == 'x' ) {
+    playerMoveRef.on('child_added', function(snapshot) {
+      if (moves.length < 1) {
+        createPlayer2();
+      }
       
-        console.log('x is winner');
+      takeOpponentPhoto(snapshot.val());  
+      checkAndPlace(snapshot.val());
+    });
+
+    function createPlayer2(arg) {
+      turnCounter += 2;
+      moves.push(null);
+      console.log('player 2 created');
+      player2 = new game.Player.setSymbol('o');
+      player1 = null;
     }
 
-    if (spaces[0].innerHTML == 'o' && spaces[1].innerHTML == 'o' && spaces[2].innerHTML == 'o' ||
-        spaces[3].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[5].innerHTML == 'o' ||
-        spaces[6].innerHTML == 'o' && spaces[7].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
-        spaces[0].innerHTML == 'o' && spaces[3].innerHTML == 'o' && spaces[6].innerHTML == 'o' ||
-        spaces[1].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[7].innerHTML == 'o' ||
-        spaces[2].innerHTML == 'o' && spaces[5].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
-        spaces[0].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[8].innerHTML == 'o' ||
-        spaces[2].innerHTML == 'o' && spaces[4].innerHTML == 'o' && spaces[6].innerHTML == 'o' ) {
+
+    if (moves.length < 1) {
+      player1 = new game.Player.setSymbol('x');
+      player2 = null;
+    } 
+    
+
+
+    $('canvas').each(function(i, elem, arr) {
       
-        console.log('o is winner');
+      $(this).click(function(ele, index, arr) {
+        if (!myTurn) { 
+          return;
+        }
+
+        var context = elem.getContext('2d');
+        var video = document.getElementById('local-video');
+        context.drawImage(video, 0, 0, 640, 480);
+        
+        if (ele.currentTarget.innerHTML) {
+          console.log('this space has been taken');
+          return;
+        }
+        
+        space.place = i;
+        if (player1 === null) {
+          // player2.name = videoChat.CreateUser.getUser();
+          myTurn = false;
+          turnCounter += 1;
+          console.log(player2);
+          space.move = player2.symbol;
+
+          $(this).text(context.drawImage(video, 0, 0, 640, 480));
+          playerMoveRef.push(space);
+        } else {
+          // player1.name = videoChat.CreateUser.getUser();
+          myTurn = false;
+          turnCounter += 1;
+          moves.push(null);
+          console.log(player1);
+          space.move = player1.symbol;
+          $(this).text(context.drawImage(video, 0, 0, 640, 480));
+          
+          playerMoveRef.push(space);
+        } 
+        
+        
+      });
+    });
+
+
+    function checkForWinner() {
+
+      if (spanElems[0].innerHTML == 'x' && spanElems[1].innerHTML == 'x' && spanElems[2].innerHTML == 'x' ||
+          spanElems[3].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[5].innerHTML == 'x' ||
+          spanElems[6].innerHTML == 'x' && spanElems[7].innerHTML == 'x' && spanElems[8].innerHTML == 'x' ||
+          spanElems[0].innerHTML == 'x' && spanElems[3].innerHTML == 'x' && spanElems[6].innerHTML == 'x' ||
+          spanElems[1].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[7].innerHTML == 'x' ||
+          spanElems[2].innerHTML == 'x' && spanElems[5].innerHTML == 'x' && spanElems[8].innerHTML == 'x' ||
+          spanElems[0].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[8].innerHTML == 'x' ||
+          spanElems[2].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[6].innerHTML == 'x' ) {
+        
+          console.log('x is winner');
+      }
+
+      if (spanElems[0].innerHTML == 'o' && spanElems[1].innerHTML == 'o' && spanElems[2].innerHTML == 'o' ||
+          spanElems[3].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[5].innerHTML == 'o' ||
+          spanElems[6].innerHTML == 'o' && spanElems[7].innerHTML == 'o' && spanElems[8].innerHTML == 'o' ||
+          spanElems[0].innerHTML == 'o' && spanElems[3].innerHTML == 'o' && spanElems[6].innerHTML == 'o' ||
+          spanElems[1].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[7].innerHTML == 'o' ||
+          spanElems[2].innerHTML == 'o' && spanElems[5].innerHTML == 'o' && spanElems[8].innerHTML == 'o' ||
+          spanElems[0].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[8].innerHTML == 'o' ||
+          spanElems[2].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[6].innerHTML == 'o' ) {
+        
+          console.log('o is winner');
+      }
     }
-  }
+  };
 
-
+    return newGame;
+  
 })();
