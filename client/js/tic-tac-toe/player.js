@@ -2,17 +2,27 @@ var game = game || {};
 
 game.Player = (function() {
   
-  function Player() {}
+  function Player(name, symbol) {
+    this.name = name;
+    this.symbol = symbol;
+  }
 
   var p = Player.prototype = new Player();
+
+  p.player1 = Player.prototype = new Player();
+  p.player2 = Player.prototype = new Player();
 
   p.setSymbol = function(symbol) {
     this.symbol = symbol;
   };
 
-  p.setUserName = function() {
-    var username = document.getElementById('username').value;
-    return username;
+  p.setUserName = function(name) {
+    name = document.getElementById('username').value;
+    return name;
+  };
+
+  p.getUserName = function(name) {
+    return name;
   };
 
   return p;

@@ -16,12 +16,35 @@
       </div>
     </div>
   </div>
+  
+  <div class="overlay-content">
+    <div id="winner"></div>
+  </div>
+
+  <div class="start-overlay">
+    <div class="overlay-content">
+      <h2>Must invite someone before starting game.</h2>
+    </div>
+  </div>
+
+  <div class="notify-pressed-start">
+    <div class="overlay-content">
+      <h2>Waiting for response.</h2>
+    </div>
+  </div>
+
+  <div class="notify-answer-start">
+    <div class="overlay-content">
+      <button id="play">Play</button> <button id="no">No</button>
+    </div>
+  </div>
     
     <div id="log">
       <p><span id="log-content">Preparing to listen</span>...</p>
     </div>
 
     <div id="remote-media"></div>
+    
 
     <div id="controls">
       <div id="local-media"></div>
@@ -29,9 +52,10 @@
       <div id="invite-controls">
         <p class="instructions"></p>
         <input id="invite-to" type="text" placeholder="Friends' name" />
-        <button id="button-invite">Call Friend</button>
       </div>
 
+      <button id="button-invite">call friend</button>
+      <button id="start-game">start game</button>
       <button id="end-call">end call</button>
     </div><!-- /controls -->
 

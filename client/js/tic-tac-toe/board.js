@@ -1,4 +1,7 @@
 var game = game || {};
+var videoChat = videoChat || {};
+var takePic = takePic || {};
+var fire = fire || {};
 
 game.board = (function() {
   function Board() {}
@@ -22,11 +25,27 @@ game.board = (function() {
   //   return spaces;
   // };
 
-  b.destroyBoard = function() {
+  b.restartGame = function() {
+    
     var canvasSpace = $('canvas');
     $(canvasSpace).each(function(i, elem, arr) {
       elem.remove();
     });
+    $('td > span').each(function(i, elem, arr) {
+      elem.remove();
+    });
+    $('tr').each(function(i, elem, arr) {
+      elem.remove();
+    });
+    $('td').each(function(i, elem, arr) {
+      elem.remove();
+    });
+    $('th').each(function(i, elem, arr) {
+      elem.remove();
+    });
+    $('table').remove();
+
+    game.GameLogic.start();
   };
 
   return b;

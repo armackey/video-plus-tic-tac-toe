@@ -11,10 +11,12 @@ game.GameLogic = (function() {
 
   newGame.start = function() {
 
-
+    game.board.createBoard(9); 
+    $('#remote-media > video').attr('id', 'remote-video');
+    $('#local-media > video').attr('id', 'local-video');
+    var player1 = null;
+    var player2 = null;
     var moves = [];
-    var player1;
-    var player2;
     var space = {};
     var spaces = document.getElementById('board').getElementsByTagName('td');
     var canvasElems = $('canvas');
@@ -23,24 +25,31 @@ game.GameLogic = (function() {
     var self = this;
 
     var myTurn = true;
-    var ref = new fire.FireCalls.newRef();
-    var playerMoveRef = ref.child('player-moves');
+
+
+    var gameRef = fire.FireCalls.createNewGameRef();
+    var clearBoardRef = gameRef.child('play again');
 
     console.log(fire);
     console.log(game);
     console.log(this);
 
-    document.getElementById('clear-board').onclick = function() {
-      playerMoveRef.remove(this.start);
-      self.clearCanvas();
-      game.board.createBoard(9);
-    };
 
-    self.clearCanvas = function() {
-      game.board.destroyBoard();
-    };
+    //clears board
+    clearBoardRef.on("child_added", function(data) {
+      game.board.restartGame();
+      // self.start();
+    });
+
+    // start game over with same person
+    document.getElementById('clear-board').onclick = function() {
+      clearBoardRef.push('new game');
+      
+      game.board.restartGame();
+    };    
     
-    
+
+
     function checkAndPlace(arg) {  
       var move = arg.move;
       var place = arg.place;
@@ -61,7 +70,7 @@ game.GameLogic = (function() {
     //   context.drawImage(video, 0, 0, 640, 480);
     // }
 
-    playerMoveRef.on('value', function(snap) {
+    gameRef.on('value', function(snap) {
 
       if (turnCounter % 2 === 0) {
         myTurn = true;
@@ -73,7 +82,7 @@ game.GameLogic = (function() {
       checkForWinner();
     });
 
-    playerMoveRef.on('child_added', function(snapshot) {
+    gameRef.on('child_added', function(snapshot) {
       if (moves.length < 1) {
         createPlayer2();
       }
@@ -84,15 +93,17 @@ game.GameLogic = (function() {
 
     function createPlayer2(arg) {
       turnCounter += 2;
-      moves.push(null);
+      // moves.push(null);
       console.log('player 2 created');
-      player2 = new game.Player.setSymbol('o');
-      player1 = null;
+      game.Player.player2.symbol = 'o';
+      player1 = game.Player.player2.symbol ;
+      player2 = null;
     }
 
-
+    // sets player symbol for board
     if (moves.length < 1) {
-      player1 = new game.Player.setSymbol('x');
+      game.Player.player1.symbol = 'x';
+      player1 = game.Player.player1.symbol;
       player2 = null;
     } 
     
@@ -120,20 +131,20 @@ game.GameLogic = (function() {
           myTurn = false;
           turnCounter += 1;
           console.log(player2);
-          space.move = player2.symbol;
+          space.move = player2;
 
           $(this).text(context.drawImage(video, 0, 0, 640, 480));
-          playerMoveRef.push(space);
+          gameRef.push(space);
         } else {
           // player1.name = videoChat.CreateUser.getUser();
           myTurn = false;
           turnCounter += 1;
           moves.push(null);
           console.log(player1);
-          space.move = player1.symbol;
+          space.move = player1;
           $(this).text(context.drawImage(video, 0, 0, 640, 480));
           
-          playerMoveRef.push(space);
+          gameRef.push(space);
         } 
         
         
@@ -152,7 +163,13 @@ game.GameLogic = (function() {
           spanElems[0].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[8].innerHTML == 'x' ||
           spanElems[2].innerHTML == 'x' && spanElems[4].innerHTML == 'x' && spanElems[6].innerHTML == 'x' ) {
         
-          console.log('x is winner');
+          $('#winner').append('<div class="overlay">' + game.Player.player1.name + ' WINS!</div>').addClass('show');
+          document.getElementById('start-game').style.display = 'inline';
+          // game.board.restartGame();
+          // videoChat.MakeCall();
+          canvasElems.unbind("click");
+          console.log('x wins');
+          gameRef.remove();
       }
 
       if (spanElems[0].innerHTML == 'o' && spanElems[1].innerHTML == 'o' && spanElems[2].innerHTML == 'o' ||
@@ -163,8 +180,14 @@ game.GameLogic = (function() {
           spanElems[2].innerHTML == 'o' && spanElems[5].innerHTML == 'o' && spanElems[8].innerHTML == 'o' ||
           spanElems[0].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[8].innerHTML == 'o' ||
           spanElems[2].innerHTML == 'o' && spanElems[4].innerHTML == 'o' && spanElems[6].innerHTML == 'o' ) {
-        
-          console.log('o is winner');
+          
+          $('#winner').append('<div class="overlay">' + game.Player.player2.name + ' WINS!</div>').addClass('show');
+          document.getElementById('start-game').style.display = 'inline';
+          // game.board.restartGame();
+          // videoChat.MakeCall();
+          console.log('o wins');
+          canvasElems.unbind("click");
+          gameRef.remove();
       }
     }
   };

@@ -3,6 +3,7 @@ var game = game || {};
 var fire = fire || {};
 
 videoChat.MakeCall = (function() {
+
   var conversationsClient;
   var activeConversation;
   var previewMedia;
@@ -10,18 +11,106 @@ videoChat.MakeCall = (function() {
   var self = this;
   var videoElems = document.getElementsByTagName('video');
   var localVideo = document.getElementById('local-media');
-  
-  var inCall = false;
+  var board = document.getElementsByTagName('canvas');
 
-  
-  
   function MakeCall() {
+    
+    var that = this;
+    var inCall = false;
+    var pNames = [];
+    var newItem = false;
+    var startGame = document.getElementById('start-game');
+    // that.ref = new Firebase('https://tic-tac-toe-cam.firebaseio.com/');
+    that.usersRef = new fire.FireCalls.users();
+    that.startGameRef = fire.FireCalls.newRef().child('start');    
+    // that.notifyRef = that.startGameRef.child('notify');
 
-    console.log(game);
+    if (board.length > 0) {
+      console.log('found board');
+      // erase game reference on firebase
+    }
+
+    startGame.onclick = function() {
+      if (!inCall) {
+        $('.start-overlay').addClass('show');
+      } else {
+        that.startGameRef.push('b');
+        // notify other use
+      }
+    };
+
+    that.startGameRef.on('child_added', function(data) {
+      document.getElementById('start-game').style.display = 'none';
+      game.GameLogic.start();
+
+      that.startGameRef.remove();
+    });
+
+
+        
+      
+    // that.notifyRef.on('child_added', function(data) {
+    //   document.getElementById('start-game').style.display = 'none';
+    //   if (pressedStart) {
+    //     $('.notify-pressed-start').addClass('show');
+    //     console.log('waiting for response');
+    //   } else {
+    //     $('.notify-answer-start').addClass('show');
+    //   }
+    //   console.log(data);
+    //   if (data.answer === 'yes') {
+    //     console.log('start game');
+    //     $('.notify-pressed-start').addClass('remove');
+    //     $('.notify-answer-start').addClass('remove');
+    //   } else {
+    //     // idk yet...
+    //   }
+    // });
+    
+
+    // document.getElementById('play').onclick = function() {
+    //   that.notifyRef.push({answer:'yes'});
+    // };
+
+    // document.getElementById('no').onclick = function() {
+    //   that.notifyRef.push({answer:'no'});
+    // };
+
+
+    // gets user names
+    that.usersRef.on('child_added', function(snap) { 
+      if (!newItem) {
+        return;
+      }
+      pNames.push(snap.val());
+      if (!game.Player.player1.name) {
+        console.log('p1');
+        game.Player.player1.name = pNames[0];
+      } else {
+        console.log('p2');
+        game.Player.player2.name = pNames[1];
+        // that.usersRef.remove();
+      }
+      
+      console.log(pNames);
+      console.log('player 1 + ' + game.Player.player1.name);
+      console.log('player 2 + ' + game.Player.player2.name);
+    });
+
+    that.usersRef.once('value', function(snap) {
+      newItem = true;
+      console.log(snap.val());
+    });
+
+    that.usersRef.once('value', function(snap) {
+      newItem = true;
+    });
+
     document.getElementById('grab-username').onclick = function() {
       document.getElementById("myNav").style.height = "0%";
       var user = {};
       user.username = game.Player.setUserName();
+      that.usersRef.push(user.username);
       createConversation(user);
     };
 
@@ -66,7 +155,8 @@ videoChat.MakeCall = (function() {
 
         // Bind button to create conversation
         document.getElementById('button-invite').onclick = function() {
-          
+          console.log(game.Player.player1.name, game.Player.player2.name);
+          $('.start-overlay').addClass('remove');
           var inviteTo = document.getElementById('invite-to').value;
           if (activeConversation) {
             // Add a participant
@@ -88,16 +178,14 @@ videoChat.MakeCall = (function() {
     function toggleButtons() {
       if (inCall) {
         hideButtons();
-        inCall = false;
-
       } else {
         showButtons();
-        inCall = true;
       } 
 
       // if in call
       function hideButtons() {
-        // need these id's for canvas to work!!
+        // when users are not connected, we want start game button disabled
+        
 
         document.getElementById('button-invite').style.display = 'none';
         // document.getElementById('button-preview').style.display = 'none';
@@ -110,6 +198,8 @@ videoChat.MakeCall = (function() {
 
       // if not in call
       function showButtons() {
+        // when users are not connected, we want start game button disabled
+        // document.getElementById('start-game').style.display = 'inline';
 
         document.getElementById('button-invite').style.display = 'inline';
         // document.getElementById('button-preview').style.display = 'inline';
@@ -136,25 +226,19 @@ videoChat.MakeCall = (function() {
 
       // When a participant joins, draw their video on screen
       conversation.on('participantConnected', function(participant) {
-        participant.media.attach('#remote-media');
-        console.log('connect');
-        game.board.createBoard(9);
-        
-        
-
         inCall = true;
+        participant.media.attach('#remote-media');
+
         toggleButtons();
         log("Participant '" + participant.identity + "' connected");
-        
-        game.GameLogic.start();
         addIdsToCanvas();
-
       });
 
       // When a participant disconnects, note in log
       conversation.on('participantDisconnected', function(participant) {
         inCall = false;
         toggleButtons();
+        
         log("Participant '" + participant.identity + "' disconnected");
       });
 

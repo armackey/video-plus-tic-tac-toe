@@ -27,9 +27,15 @@ td > span {
 
 #end-call {
   display: none;
-  position: relative;
-  top: -137px;
+  position: absolute;
+  top: 314px;
   left: 331px;
+}
+
+#button-invite {
+  position: absolute;
+  top: 314px;
+  left: 24px;
 }
 
 html, body {
@@ -153,18 +159,18 @@ section input {
 }
 
 .overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
+  color: #f1f1f1;
 }
 
 .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px !important;
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px !important;
 }
 
 @media screen and (max-height: 450px) {
-  .overlay {overflow-y: auto;}
+  .overlay, .start-overlay {overflow-y: auto;}
   .overlay a {font-size: 20px}
   .closebtn {
     font-size: 40px !important;
@@ -173,20 +179,73 @@ section input {
   }
 }
 
- button {
-    background-color:transparent;
-    border:1px dashed #83A4C5;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:12px;
-    font-weight:bold;
-    padding:8px 16px;
-    text-decoration:none;
-    text-shadow:0px 3px 5px #2f6627;
-    margin-left: 5px;
-  }
+.start-overlay, .notify-pressed-start, .notify-answer-start, #winner {
+  height: 100px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: -100px;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+  display: none;
+  opacity: 0;
+}
+
+.show {
+  -webkit-animation: noInvite 1.3s linear;
+  -moz-animation: noInvite 1.3s linear;
+  animation: noInvite 1.3s linear;
+  display: block;
+  opacity: 1;
+  top: -50px;
+  transition: all 1s ease 2s;
+}
+
+.remove {
+  top: -110px;
+  transition: all .5s ease .6s;
+}
+
+#start-game {
+  position: absolute;
+  top: 314px;
+  display: inline;
+  left: 123px;
+}
+
+
+/*@-webkit-keyframes noInvite {
+  from {transform: translateY(0px);opacity: 1;}
+  to {transform: translateY(-105px);opacity: 0.8;}
+}
+
+@-moz-keyframes noInvite {
+  from {transform: translateY(0px);opacity: 1;}
+  to {transform: translateY(-105px);opacity: 0.8;}
+}
+
+@keyframes noInvite {
+  from {transform: translateY(0px);opacity: 1;}
+  to {transform: translateY(-105px);opacity: 0.8;}
+}*/
+
+button {
+  background-color:transparent;
+  border:1px dashed #83A4C5;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:12px;
+  font-weight:bold;
+  padding:8px 16px;
+  text-decoration:none;
+  text-shadow:0px 3px 5px #2f6627;
+  margin-left: 5px;
+}
 
 
 #username, #invite-to {
@@ -201,6 +260,8 @@ section input {
   position: relative;
   top: 9px;
   font-size: 16px;
+  /* display: block; */
+  margin-top: 30px;
 }
 
 #button-invite:hover, #end-call:hover {
@@ -233,9 +294,9 @@ td, canvas {
 }
 
 #clear-board {  
-  position: relative;
-  left: 20%;
-  top: -170px;
+  position: absolute;
+  left: 226px;
+  top: 314px;
 }
 
 /*#board > div:nth-of-type(1n) {
