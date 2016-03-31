@@ -179,7 +179,7 @@ section input {
   }
 }
 
-.start-overlay, .notify-pressed-start, .notify-answer-start, #winner {
+.start-overlay, .notify-pressed-start, .notify-answer-start {
   height: 100px;
   width: 100%;
   position: fixed;
@@ -297,6 +297,28 @@ td, canvas {
   position: absolute;
   left: 226px;
   top: 314px;
+}
+
+
+.winner > video {
+  width: 100% !important;
+  position: absolute !important;
+  top: -84px;
+  height: 504px;
+  border: none !important;
+  right: 0px !important;
+  display: inline;
+  z-index: 5;
+}
+
+.has-won {
+  font-size: 102px;
+  z-index: 10;
+  text-align: center;
+  color: #B1F57C;
+  position: relative;
+  top: 163px;
+  display: none;
 }
 
 /*#board > div:nth-of-type(1n) {
