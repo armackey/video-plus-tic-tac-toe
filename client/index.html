@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Twilio Video - Video Quickstart</title>
+  <title>Tic Tac CAM</title>
   <link rel="stylesheet" href="index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
+  <div id="log">
+    <p><span id="log-content"></span></p>
+  </div>
+
+  <div class="online"></div>
 
   <div id="myNav" class="overlay">
+    <div class="online"></div>
     <div class="overlay-content">
       <div id="get-username">
         <h2>Disclaimer: Works Best In Chrome.</h2>
@@ -39,9 +46,7 @@
     </div>
   </div>
     
-    <div id="log">
-      <p><span id="log-content">Preparing to listen</span>...</p>
-    </div>
+
 
     <div id="remote-media"></div>
     
@@ -56,13 +61,18 @@
 
       <button id="button-invite">call friend</button>
       <button id="start-game">start game</button>
-      <button id="end-call">end call</button>
+      <!-- <button id="end-call">end call</button> -->
     </div><!-- /controls -->
+
     
-    <div class="has-won">Wins</div>
+      <div class="has-won">Wins
+        <div><button id="clear-board"> clear board </button></div>  
+      </div>
     
+
       <div id="board"></div>
-      <div><button id="clear-board"> clear board </button></div>  
+
+      
     
 
   

@@ -39,7 +39,6 @@ game.GameLogic = (function() {
 
     //clears board
     clearBoardRef.on("child_added", function(data) {
-      game.board.restartGame();
       gameRef.remove();
     });
 
@@ -54,7 +53,6 @@ game.GameLogic = (function() {
       var move = arg.move;
       var place = arg.place;
       spanElems[place].innerHTML = move;
-      console.log
     }
 
     function takeOpponentPhoto(arg) {

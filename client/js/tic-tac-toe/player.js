@@ -7,6 +7,8 @@ game.Player = (function() {
     this.symbol = symbol;
   }
 
+  var name;
+
   var p = Player.prototype = new Player();
 
   p.player1 = Player.prototype = new Player();
@@ -21,7 +23,7 @@ game.Player = (function() {
     return name;
   };
 
-  p.getUserName = function(name) {
+  p.getUserName = function() {
     return name;
   };
 

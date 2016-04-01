@@ -44,8 +44,8 @@ game.board = (function() {
       elem.remove();
     });
     $('table').remove();
-
-    game.GameLogic.start();
+    $('.overlay').css('height','100%').text('Disclaimer: Works Best In Chrome.');
+    // game.GameLogic.start();
   };
 
   return b;
