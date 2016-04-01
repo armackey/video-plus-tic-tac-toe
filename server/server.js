@@ -16,8 +16,9 @@ app.use(bodyParser.json());
 app.use(require('./routes/user.routes'));
 
 // Create http server and run it
-var server = http.createServer(app);
-var port = process.env.PORT || 3000;
-server.listen(port, function() {
-    console.log('Express server running on *:' + port);
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
+

@@ -1,15 +1,12 @@
 {
   "name": "video-quickstart-node",
   "version": "1.0.0",
-  "description": "Quick Start application template for Twilio Video on Node.js",
+  "description": "Tic-tac-toe with you're camera.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "github.com/TwilioDevEd/video-quickstart-node"
-  },
+
   "keywords": [
     "twilio",
     "video",
