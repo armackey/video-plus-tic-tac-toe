@@ -1,13 +1,355 @@
-* {
+/** {
   box-sizing:border-box;
+}*/
+@media (max-width: 1024px) {
+
+
+  h2 {
+    font-size: 36px;
+  }
+
+  #username {
+    font-size: 32px;
+    width: 360px;
+  }
+
+  #grab-username {
+    left: -10px;
+    width: 120px;
+    height: 52px;
+    font-size: 20px;
+    position: relative;
+    top: -3px;
+  }
+
+  #log-content {
+    font-size: 44px;
+  }
+
+  .only-me {
+    font-size: 32px;
+  }
+
+  #invite-to {
+    width: 450px;
+    font-size: 38px;
+  }
+  #button-invite {
+    top: 182px;
+    left: 433px;
+    width: 133px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+
+  #remote-media > video {
+    width: 100%;
+    max-width: 768px;
+  }
+
+  #local-media > video {
+    width: 300px;
+    top: -235px;;
+  }
+
+
+  #start-game {
+    top: 678px;
+    left: 579px;
+    width: 160px;
+    font-size: 22px;
+  }
+
+
+  #board {
+    left: 28%;
+    top: 268px;
+  }
+
+  .has-won {
+    top: 141px;
+  }
+
 }
+
+@media (max-width: 768px) {
+
+  h2 {
+    font-size: 36px;
+  }
+
+  #username {
+    font-size: 32px;
+    width: 360px;
+  }
+
+  #grab-username {
+    left: -10px;
+    width: 120px;
+    height: 52px;
+    font-size: 20px;
+    position: relative;
+    top: -5px;
+  }
+
+  #log-content {
+    font-size: 44px;
+  }
+
+  .only-me {
+    font-size: 32px;
+  }
+
+  #invite-to {
+    width: 450px;
+    font-size: 38px;
+  }
+  #button-invite {
+    position: relative;
+    top: 182px;
+    left: 433px;
+    width: 133px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+
+  #remote-media > video {
+    width: 100%;
+    max-width: 768px;
+  }
+
+  #local-media > video {
+    width: 300px;
+    top: -235px;;
+  }
+
+
+  #start-game {
+    top: 678px;
+    left: 579px;
+    width: 160px;
+    font-size: 22px;
+  }
+
+
+  #board {
+    left: 28%;
+    top: 268px;
+  }
+
+  .has-won {
+    top: 141px;
+  }
+
+}
+
+@media (max-width: 400px) {
+  h2 {
+    font-size: 19px;
+  }
+  .user-list {
+    font-size: 22px;
+  }
+
+  #log-content {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+
+  #button-invite {
+    top: 125px;
+    width: 102px;
+    left: 203px;
+    font-size: 14px;
+    height: 35px;
+  }
+
+  #grab-username {
+    position: relative;
+    left: 100px;
+    width: 84px;
+    height: 33px;
+    top: -24px;
+    font-size: 14px;
+  }
+
+  #remote-media > video {
+    width: 100%;
+    position: relative;
+    max-width: 400px;
+    right: 0px;
+  }
+
+  #start-game {
+    top: 339px;
+    left: 250px;
+  }
+
+  #board {
+    left: 4%;
+    top: 93px;
+  }
+
+  table {
+    text-align: center;
+  }
+
+
+}
+
+@media only screen and (max-width : 360px) {
+
+
+  .user-list {
+    font-size: 22px;
+  }
+
+  #log-content {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+
+  #button-invite {
+    top: -26px;
+    width: 102px;
+    left: 243px;
+    font-size: 14px;
+    height: 35px;
+  }
+
+  #grab-username {
+    position: relative;
+    left: 100px;
+    width: 84px;
+    height: 33px;
+    top: -24px;
+    font-size: 14px;
+  }
+
+  #remote-media > video {
+    width: 100%;
+    position: relative;
+    max-width: 400px;
+    right: 0px;
+  }
+
+  #start-game {
+    top: 339px;
+    left: 250px;
+  }
+
+  #board {
+    left: 4%;
+    top: 93px;
+  }
+
+  table {
+    text-align: center;
+  }
+
+  
+}
+
+@media (max-width: 320px) {
+
+  .user-list {
+    font-size: 22px;
+  }
+
+  #log-content {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+
+  #button-invite {
+    width: 102px;
+    left: 203px;
+    font-size: 14px;
+    height: 35px;
+  }
+
+  #grab-username {
+    position: relative;
+    left: 100px;
+    width: 84px;
+    height: 33px;
+    top: -24px;
+    font-size: 14px;
+  }
+
+  #remote-media > video {
+    width: 100%;
+    position: relative;
+    max-width: 400px;
+    right: 0px;
+  }
+
+  #start-game {
+    top: 339px;
+    left: 250px;
+  }
+
+  #board {
+    left: 4%;
+    top: 93px;
+  }
+
+  table {
+    text-align: center;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #controls, #local-media {
   display: inline;
 }
 
 td > span {
-  display: none;
+  display: inline;
+
 }
 
 #local-media > video {
@@ -31,11 +373,6 @@ td > span {
   left: 331px;
 }
 
-#button-invite {
-  position: absolute;
-  top: 314px;
-  left: 24px;
-}
 
 html, body {
   padding:0;
@@ -48,7 +385,7 @@ html, body {
   font-family: font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
 }
 
-header {
+/*header {
   width:100%;
   position:absolute;
   text-align:center;
@@ -63,9 +400,9 @@ header a, header a:visited {
 
 header a:hover {
   text-decoration:underline;
-}
+}*/
 
-section {
+/*section {
   height:70%;
   background-color:#2B2B2A;
 }
@@ -82,9 +419,9 @@ section input {
   padding:0;
   font-size:42px;
   color:#eee;
-}
+}*/
 
-#messages {
+/*#messages {
   background-color:#232323;
   padding:10px;
   height:100%;
@@ -106,9 +443,9 @@ section input {
 .message-container {
   margin:5px 0;
   color:#fff;
-}
+}*/
 
-.message-container .username {
+/*.message-container .username {
   display:inline-block;
   margin-right:5px;
   font-weight:bold;
@@ -123,7 +460,7 @@ section input {
 .message-container .username.me {
   display:inline-block;
   margin-right:5px;
-}
+}*/
 
 /**********************OVERLAY******************************/
 
@@ -169,7 +506,7 @@ section input {
   font-size: 60px !important;
 }
 
-@media screen and (max-height: 450px) {
+/*@media screen and (max-height: 450px) {
   .overlay, .start-overlay {overflow-y: auto;}
   .overlay a {font-size: 20px}
   .closebtn {
@@ -177,7 +514,7 @@ section input {
     top: 15px;
     right: 35px;
   }
-}
+}*/
 
 .start-overlay, .notify-pressed-start, .notify-answer-start {
   height: 100px;
@@ -335,236 +672,11 @@ td, canvas {
   color: white;
 }
 
-#grab-username { 
-  left: -10px;
-}
 
 .only-me {
   color: white;
   font-size: 16px;
   margin-left: 10px;
 }
-
-
-@media (max-width: 400px) {
-  h2 {
-    font-size: 19px;
-  }
-  .user-list {
-    font-size: 22px;
-  }
-
-  #log-content {
-    margin-left: 10px;
-    font-size: 18px;
-  }
-
-  #button-invite {
-    top: 122px;
-    left: 280px;
-    width: 95px;
-    left: 265px;
-  }
-
-  #grab-username {
-    position: relative;
-  }
-
-  #remote-media > video {
-    width: 100%;
-    position: relative;
-    max-width: 400px;
-    right: 0px;
-  }
-
-  #start-game {
-    top: 339px;
-    left: 250px;
-  }
-
-  #board {
-    left: 4%;
-    top: 93px;
-  }
-
-  table {
-    text-align: center;
-  }
-
-
-}
-
-
-
-@media (max-width: 768px) {
-
-  h2 {
-    font-size: 36px;
-  }
-
-  #username {
-    font-size: 32px;
-    width: 360px;
-  }
-
-  #grab-username {
-    left: -10px;
-    width: 120px;
-    height: 52px;
-    font-size: 20px;
-    position: relative;
-    top: -5px;
-  }
-
-  #log-content {
-    font-size: 44px;
-  }
-
-  .only-me {
-    font-size: 32px;
-  }
-
-  #invite-to {
-    width: 450px;
-    font-size: 38px;
-  }
-  #button-invite {
-    position: absolute;
-    top: 182px;
-    left: 433px;
-    width: 133px;
-    height: 52px;
-    font-size: 20px;
-  }
-
-
-  #remote-media > video {
-    width: 100%;
-    max-width: 768px;
-  }
-
-  #local-media > video {
-    width: 300px;
-    top: -235px;;
-  }
-
-
-  #start-game {
-    top: 678px;
-    left: 579px;
-    width: 160px;
-    font-size: 22px;
-  }
-
-
-  #board {
-    left: 28%;
-    top: 268px;
-  }
-
-  .has-won {
-    top: 141px;
-  }
-
-}
-
-
-
-
-
-@media (max-width: 1024px) {
-
-
-  h2 {
-    font-size: 36px;
-  }
-
-  #username {
-    font-size: 32px;
-    width: 360px;
-  }
-
-  #grab-username {
-    left: -10px;
-    width: 120px;
-    height: 52px;
-    font-size: 20px;
-    position: relative;
-    top: -3px;
-  }
-
-  #log-content {
-    font-size: 44px;
-  }
-
-  .only-me {
-    font-size: 32px;
-  }
-
-  #invite-to {
-    width: 450px;
-    font-size: 38px;
-  }
-  #button-invite {
-    top: 182px;
-    left: 433px;
-    width: 133px;
-    height: 52px;
-    font-size: 20px;
-  }
-
-
-  #remote-media > video {
-    width: 100%;
-    max-width: 768px;
-  }
-
-  #local-media > video {
-    width: 300px;
-    top: -235px;;
-  }
-
-
-  #start-game {
-    top: 678px;
-    left: 579px;
-    width: 160px;
-    font-size: 22px;
-  }
-
-
-  #board {
-    left: 28%;
-    top: 268px;
-  }
-
-  .has-won {
-    top: 141px;
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

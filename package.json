@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-
   "keywords": [
     "twilio",
     "video",
@@ -26,5 +25,10 @@
     "express": "^4.13.4",
     "mongoose": "^4.4.9",
     "twilio": "^3.0.0-rc.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.0.6"
   }
 }
