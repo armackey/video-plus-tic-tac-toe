@@ -117,7 +117,8 @@ game.GameLogic = (function() {
         }
 
         var context = elem.getContext('2d');
-        context.drawImage(localVidStream, 0, 0, 640, 480);
+        var video = document.getElementById('local-video');
+        context.drawImage(video, 0, 0, 640, 480);
         
         if (ele.currentTarget.innerHTML) {
           console.log('this space has been taken');
@@ -133,7 +134,7 @@ game.GameLogic = (function() {
           space.move = player2;
           console.log('I am player 2 o');
           $(localVidStream).addClass('o');
-          $(this).text(context.drawImage(localVidStream, 0, 0, 640, 480));
+          $(this).text(context.drawImage(video, 0, 0, 640, 480));
           gameRef.push(space);
         } else {
           $(localVidStream).addClass('x');
@@ -142,7 +143,7 @@ game.GameLogic = (function() {
           moves.push(null);
           console.log(player1);
           space.move = player1;
-          $(this).text(context.drawImage(localVidStream, 0, 0, 640, 480));
+          $(this).text(context.drawImage(video, 0, 0, 640, 480));
           console.log('I am player 1 x');
           gameRef.push(space);
         } 
