@@ -25,6 +25,7 @@ game.GameLogic = (function() {
     var self = this;
     var localVidStream = document.getElementById('local-media');
     var remoteVidStream = document.getElementById('remote-media');
+    var context = elem.getContext('2d');
 
     var myTurn = true;
 
@@ -57,7 +58,7 @@ game.GameLogic = (function() {
 
     function takeOpponentPhoto(arg) {
       var place = arg.place;
-      console.log(place + ' place');
+      console.log(place + ' remote');
       var video = document.getElementById('remote-video');
       var context = canvasElems[place].getContext('2d');
       context.drawImage(video, 0, 0, 640, 480);
@@ -116,8 +117,7 @@ game.GameLogic = (function() {
           return;
         }
 
-        var context = elem.getContext('2d');
-        var video = document.getElementById('local-video');
+
         context.drawImage(video, 0, 0, 640, 480);
         
         if (ele.currentTarget.innerHTML) {
@@ -134,7 +134,7 @@ game.GameLogic = (function() {
           space.move = player2;
           console.log('I am player 2 o');
           $(localVidStream).addClass('o');
-          $(this).text(context.drawImage(video, 0, 0, 640, 480));
+          $(this).text(context.drawImage(localVidStream, 0, 0, 640, 480));
           gameRef.push(space);
         } else {
           $(localVidStream).addClass('x');
@@ -143,7 +143,7 @@ game.GameLogic = (function() {
           moves.push(null);
           console.log(player1);
           space.move = player1;
-          $(this).text(context.drawImage(video, 0, 0, 640, 480));
+          $(this).text(context.drawImage(localVidStream, 0, 0, 640, 480));
           console.log('I am player 1 x');
           gameRef.push(space);
         } 

@@ -1,6 +1,36 @@
 /** {
   box-sizing:border-box;
 }*/
+
+#start-game {
+  display: none;
+  position: relative;
+}
+
+#board {
+  position: absolute;
+}
+
+#local-media > video {
+  width: 100px;
+  position: relative;
+  top: -85px;
+  border: 2px solid white;
+  right: -25px;
+  display: inline;
+}
+
+td > span {
+  display: none;
+}
+
+td, canvas {
+  width: 100px;
+  height: 100px;
+  background: white;
+  margin: 5px 5px 5px 5px;
+}
+
 @media (max-width: 1024px) {
 
 
@@ -201,6 +231,15 @@
 
 @media only screen and (max-width : 360px) {
 
+  #local-media > video {
+    width: 100px;
+    position: relative;
+    top: -85px;
+    border: 2px solid white;
+    right: -4px;
+    display: inline;
+  }
+
 
   .user-list {
     font-size: 22px;
@@ -229,20 +268,22 @@
   }
 
   #remote-media > video {
-    width: 100%;
+
+    max-width: 360px;
     position: relative;
     max-width: 400px;
     right: 0px;
   }
 
   #start-game {
-    top: 339px;
-    left: 250px;
+    position: relative;
+    top: -149px;
+    left: 191px;  
   }
 
   #board {
-    left: 4%;
-    top: 93px;
+    left: 8px;
+    top: 375px;
   }
 
   table {
@@ -253,6 +294,10 @@
 }
 
 @media (max-width: 320px) {
+  #local-media > video {
+    top: -85px;
+    right: -5px;
+  }
 
   .user-list {
     font-size: 22px;
@@ -282,63 +327,30 @@
   #remote-media > video {
     width: 100%;
     position: relative;
-    max-width: 400px;
+    max-width: 320px;
     right: 0px;
   }
 
   #start-game {
-    top: 339px;
-    left: 250px;
+    top: -149px;
+    left: 150px;
   }
 
   #board {
-    left: 4%;
-    top: 93px;
+    left: 4px;
+    top: 308px;
   }
-
   table {
     text-align: center;
   }
 
+  td > canvas {
+    width: 40px;
+    height: 20px;;
+  }
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -347,24 +359,10 @@
   display: inline;
 }
 
-td > span {
-  display: inline;
 
-}
 
-#local-media > video {
-  width: 100px;
-  position: relative;
-  top: -85px;
-  border: 2px solid white;
-  right: -25px;
-  display: inline;
-}
 
-#remote-media > video {
-  width: 400px;
-  position: relative;
-}
+
 
 #end-call {
   display: none;
@@ -545,13 +543,13 @@ section input {
   transition: all .5s ease .6s;
 }
 
-#start-game {
+/*#start-game {
   position: absolute;
   top: 314px;
   display: inline;
   left: 123px;
   display: none;
-}
+}*/
 
 
 /*@-webkit-keyframes noInvite {
@@ -616,20 +614,9 @@ button {
 }
 */
 
-#board {
-  margin-right: 100px;
-  width: 30%;
-  position: absolute;
-  left: 57%;
-  top: 47px;
-}
 
-td, canvas {
-  width: 100px;
-  height: 100px;
-  background: white;
-  margin: 5px 5px 5px 5px;
-}
+
+
 
 #clear-board {  
   position: absolute;
