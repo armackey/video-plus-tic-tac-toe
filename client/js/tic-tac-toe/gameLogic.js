@@ -69,6 +69,18 @@ game.GameLogic = (function() {
     //   context.drawImage(video, 0, 0, 640, 480);
     // }
 
+    gameRef.on('child_added', function(snapshot) {
+      console.log('first');
+      if (moves.length < 1) {
+        createPlayer2();
+      }
+      if (!myTurn && turnCounter % 2 !== 0) {
+        console.log(turnCounter);
+        takeOpponentPhoto(snapshot.val());  
+      }
+      
+      checkAndPlace(snapshot.val());
+    });
 
     gameRef.on('value', function(snap) {
       if (turnCounter % 2 === 0) {
@@ -79,19 +91,6 @@ game.GameLogic = (function() {
       }
 
       checkForWinner();
-
-      gameRef.on('child_added', function(snapshot) {
-        console.log('first');
-        if (moves.length < 1) {
-          createPlayer2();
-        }
-        if (!myTurn) {
-          takeOpponentPhoto(snapshot.val());  
-        }
-        
-        checkAndPlace(snapshot.val());
-      });
-
     });
 
 
