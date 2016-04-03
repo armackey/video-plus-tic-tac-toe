@@ -117,7 +117,7 @@ game.GameLogic = (function() {
         }
 
         var context = elem.getContext('2d');
-        context.drawImage(video, 0, 0, 640, 480);
+        context.drawImage(localVidStream, 0, 0, 640, 480);
         
         if (ele.currentTarget.innerHTML) {
           console.log('this space has been taken');
