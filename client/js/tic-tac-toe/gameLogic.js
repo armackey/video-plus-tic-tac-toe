@@ -53,6 +53,7 @@ game.GameLogic = (function() {
       var move = arg.move;
       var place = arg.place;
       spanElems[place].innerHTML = move;
+      checkForWinner();
     }
 
     function takeOpponentPhoto(arg) {
@@ -74,24 +75,21 @@ game.GameLogic = (function() {
       if (moves.length < 1) {
         createPlayer2();
       }
-      if (!myTurn && turnCounter % 2 !== 0) {
-        console.log(turnCounter);
-        takeOpponentPhoto(snapshot.val());  
-      }
-      
-      checkAndPlace(snapshot.val());
-    });
 
-    gameRef.on('value', function(snap) {
       if (turnCounter % 2 === 0) {
         myTurn = true;
+        takeOpponentPhoto(snapshot.val());  
       } else {
         myTurn = false;
         turnCounter += 1;
       }
+      checkAndPlace(snapshot.val());
 
-      checkForWinner();
     });
+
+    // gameRef.on('value', function(snap) {
+
+    // });
 
 
 
