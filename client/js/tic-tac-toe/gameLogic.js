@@ -85,8 +85,10 @@ game.GameLogic = (function() {
       if (moves.length < 1) {
         createPlayer2();
       }
+      if (!myTurn) {
+        takeOpponentPhoto(snapshot.val());  
+      }
       
-      takeOpponentPhoto(snapshot.val());  
       checkAndPlace(snapshot.val());
     });
 
