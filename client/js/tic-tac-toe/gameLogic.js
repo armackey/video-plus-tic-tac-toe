@@ -25,7 +25,6 @@ game.GameLogic = (function() {
     var self = this;
     var localVidStream = document.getElementById('local-media');
     var remoteVidStream = document.getElementById('remote-media');
-    var context = elem.getContext('2d');
 
     var myTurn = true;
 
@@ -117,7 +116,7 @@ game.GameLogic = (function() {
           return;
         }
 
-
+        var context = elem.getContext('2d');
         context.drawImage(video, 0, 0, 640, 480);
         
         if (ele.currentTarget.innerHTML) {
