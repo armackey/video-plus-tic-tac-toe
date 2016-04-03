@@ -74,6 +74,7 @@ game.GameLogic = (function() {
       if (turnCounter % 2 === 0) {
         myTurn = true;
       } else {
+        takeOpponentPhoto(snap.val());
         myTurn = false;
         turnCounter += 1;
       }
@@ -84,9 +85,6 @@ game.GameLogic = (function() {
     gameRef.on('child_added', function(snapshot) {
       if (moves.length < 1) {
         createPlayer2();
-      }
-      if (!myTurn) {
-        takeOpponentPhoto(snapshot.val());  
       }
       
       checkAndPlace(snapshot.val());
