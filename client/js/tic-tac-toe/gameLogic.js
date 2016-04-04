@@ -87,10 +87,6 @@ game.GameLogic = (function() {
 
     });
 
-    // gameRef.on('value', function(snap) {
-
-    // });
-
 
 
     function createPlayer2(arg) {
