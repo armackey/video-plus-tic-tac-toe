@@ -11,7 +11,7 @@ game.Player = (function() {
 
   var p = Player.prototype = new Player();
 
-  p.player1 = Player.prototype = new Player();
+  p.player = Player.prototype = new Player();
   p.player2 = Player.prototype = new Player();
 
   p.setSymbol = function(symbol) {
@@ -19,7 +19,8 @@ game.Player = (function() {
   };
 
   p.setUserName = function(name) {
-    name = document.getElementById('username').value;
+    this.player.name = name;
+    name = name;
     return name;
   };
 

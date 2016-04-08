@@ -49,7 +49,9 @@ game.GameLogic = (function() {
     
 
 
-    function checkAndPlace(arg) {  
+    function checkAndPlace(arg) { 
+      console.log(arg);
+      console.log('checkAndPlace');
       var move = arg.move;
       var place = arg.place;
       spanElems[place].innerHTML = move;
@@ -57,6 +59,8 @@ game.GameLogic = (function() {
     }
 
     function takeOpponentPhoto(arg) {
+      console.log(arg);
+      console.log('takeOpponentPhoto');
       var place = arg.place;
       console.log(place + ' remote');
       var video = document.getElementById('remote-video');
@@ -87,24 +91,27 @@ game.GameLogic = (function() {
 
     });
 
+    // gameRef.on('child_removed', function(snap) {
+    //   gameRef.remove();
+    // });
+
 
 
     function createPlayer2(arg) {
       turnCounter += 2;
       moves.push(null);
       console.log('player 2 created');
-      game.Player.player2.symbol = 'o';
-      player2 = game.Player.player2.symbol;
-      player1 = null;
+      game.Player.player.symbol = 'o';
+      // player2 = game.Player.player2.symbol;
+      // player1 = null;
     }
 
     // sets player symbol for board
-    if (moves.length < 1) {
-      console.log(game.Player.player1.name);
-      game.Player.player1.symbol = 'x';
-      player1 = game.Player.player1.symbol;
-      player2 = null;
-    } 
+    // if (moves.length < 1) {
+    //   game.Player.player.symbol = 'x';
+    //   player1 = game.Player.player.symbol;
+    //   player2 = null;
+    // } 
     
 
 
@@ -125,12 +132,12 @@ game.GameLogic = (function() {
         }
         
         space.place = i;
-        if (player1 === null) {
+        if (game.Player.player.symbol !== 'x') {
           // player2.name = videoChat.CreateUser.getUser();
           myTurn = false;
           turnCounter += 1;
           console.log(player2);
-          space.move = player2;
+          space.move = 'o';
           console.log('I am player 2 o');
           $(localVidStream).addClass('o');
           $(this).text(context.drawImage(video, 0, 0, 640, 480));
@@ -141,7 +148,7 @@ game.GameLogic = (function() {
           turnCounter += 1;
           moves.push(null);
           console.log(player1);
-          space.move = player1;
+          space.move = 'x';
           $(this).text(context.drawImage(video, 0, 0, 640, 480));
           console.log('I am player 1 x');
           gameRef.push(space);
