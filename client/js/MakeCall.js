@@ -94,7 +94,6 @@ videoChat.MakeCall = (function() {
       if (inGame || !inCall) {
         return;
       }
-      console.log(data.val());
       if (typeof data.val() === 'string') {
         room = data.val();
       }
@@ -129,6 +128,9 @@ videoChat.MakeCall = (function() {
     };
 
     function whosOnline(online) {
+      if (!online) {
+        return;
+      }
       var key;
       for (key in online.presence) {
         writeToDOM(key);
@@ -136,10 +138,13 @@ videoChat.MakeCall = (function() {
     }
 
     function writeToDOM(name) {
-      if (game.Player.setUserName() !== name) {
+      // for remove child when people leave room
+      // $('.user-list').each(function(user){
+      //   console.log($(this).text().indexOf());
+      // });
+      if (game.Player.player.name !== name) {
+        $('.only-me').text('');
         $('.online').append('<div class="user-list">'+ name + ' is online' + '</div>');  
-      } else {
-        $('.online').append('<div class="only-me">' + 'You\'re the only one online :\'( open a 2nd tab..?' + '</div>');  
       }
     }
 
@@ -149,39 +154,32 @@ videoChat.MakeCall = (function() {
       if (!newItem) {
         return;
       }
-      console.log(snap.val());
-
-
       if (typeof snap.val() === 'object') {
-        whosOnline(snap.val());
         return;
       }
-      console.log(snap.val());
-      // // if length of snap is greater than 1 return eh...
-      // if (snap.val() === game.Player.player1.name) {
-      //   return;
-      // }
-
-      // if (!game.Player.player2.name) {
-      //   game.Player.player2.name = snap.val();
-      // }
-      // pNames.push(snap.val());
-      // if (snap.val() === undefined) {
-      //   return;
-      // }
-      // if (!game.Player.player1.name) {
-      //   game.Player.player1.name = pNames[0];
-      // } else {
-      //   game.Player.player2.name = pNames[1];
-      //   // usersRef.remove();
-      // }
+      if (snap.val() != game.Player.player.name) {
+        writeToDOM(snap.val());  
+      }
+      
     });
 
-    usersRef.once('value', function(snap) {
-      newItem = true;
-    });
+    // usersRef.on('child_removed', function(snap) { 
+    //   console.log(snap.val());
+    //   console.log('child removed');
+    //   if (typeof snap.val() === 'object') {
+    //     whosOnline(snap.val());
+    //   }
+
+      
+    // });
 
     usersRef.once('value', function(snap) {
+      if (snap.val() !== null) {
+          whosOnline(snap.val().online);
+      } else {
+        $('.user-list').text('');
+        $('.online').append('<div class="only-me">' + 'You\'re the only one online :\'( .. you could open a second tab to play' + '</div>'); 
+      }
       newItem = true;
     });
 
@@ -189,7 +187,6 @@ videoChat.MakeCall = (function() {
     function addIdsToCanvas() {
       var remoteVideo = document.getElementById('remote-media');
       if (!remoteVideo) {
-        console.log('remote media not found');
       } else {
         $('#remote-media > video').attr('id', 'remote-video');
         $('#local-media > video').attr('id', 'local-video');
